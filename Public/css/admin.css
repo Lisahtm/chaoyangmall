@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+td.details-control {
+    cursor: pointer;
+}
+
+td.details-control:after {
+    content: "显示";
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+tr.shown td.details-control:after {
+    content: "隐藏";
+}
