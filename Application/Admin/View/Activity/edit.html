@@ -5,189 +5,79 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    <if condition="$user eq 1">
-                        查看供货商
-                    <else/>
-                        <if condition="$vendor eq 1">
-                            修改供货商资料
-                        <else/>
-                            修改用户资料
-                        </if>                    
+                    
+                    <if condition="$isEdit eq 1">
+                        <if condition="$type eq 1">
+                            修改热销活动信息    
+                        <else />
+                            修改招商信息
+                        </if>
+                    
+                        <else />
+                        <if condition="$type eq 1">
+                            新增热销活动信息    
+                        <else />
+                            新增招商信息
+                        </if>
                     </if>
-                
+                    <a href="/Admin/Activity/edit?type={$type}" class="btn btn-success pull-right">新增</a>
                 </h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
-        <if condition="$result gt 0">
-            <div class="alert alert-success alter-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                更新成功！
-            </div>
-            <elseif condition="$result lt 0"/>
-            <div class="alert alert-danger alter-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                更新失败，信息填写有误！
-            </div>
-        </if>
+        <present name="res">
+            <if condition="$res eq 0">
+                <div class="alert alert-success alter-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    更新成功！
+                </div>
+
+                <elseif condition="$res gt 0"/>
+                <div class="alert alert-danger alter-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    更新失败！
+                    <if condition="$res eq 1">
+                        标题内容不允许为空
+                    <elseif condition="$res eq 2" />
+                        标题过长！
+                    </if>
+                </div>
+            </if>
+        </present>
         <div class="row">
             <div class="col-lg-12">
-            <form class="form-horizontal" role="form" enctype="multipart/form-data" action="/Admin/Client/edit" method="post">
-                    <if condition="$vendor eq 1">
-                        <input type="hidden" name="vendor" value="1">
-                    <else/>
-                        <input type="hidden" name="vendor" value="0">
-                    </if>
+            <form class="form-horizontal" role="form" enctype="multipart/form-data" action="/Admin/Activity/edit" method="post">
+                <input type="hidden" name="type" value="{$type}">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <if condition="$vendor eq 1">
-                        供货商资料
-                        <else/>
-                        用户资料
-                        </if>
+                        详细信息
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <input type="hidden" id="id" name="id" value={$client_info['id']}>
-                        <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">用户名</label>
-                                <div class="col-sm-10">    
-                                    <p class="form-control-static" id="name">{$client_info['name']|default="未填写"}</p>
+                        <input type="hidden" id="id" name="id" value="{$activity_info['id']|default=''}">
+                            <div class="form-group">
+                                <label for="customer_name" class="col-sm-2 control-label">标题</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control not_null" id="title" name="title" placeholder="标题（不能为空）" type="text" value="{$activity_info['title']|default=''}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="customer_name" class="col-sm-2 control-label">姓名</label>
+                                <label for="content" class="col-sm-2 control-label">内容</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control not_null" id="customer_name" name="customer_name" placeholder="姓名（不能为空）" type="text" value="{$client_info['customer_name']|default=''}">
+                                    <textarea class="form-control not_null" id="content" name="content" placeholder="内容"  rows="10">{$activity_info['content']|default=''}</textarea> 
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="telephone" class="col-sm-2 control-label">手机</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control not_null" id="telephone" name="telephone" placeholder="手机" type="tel" value="{$client_info['telephone']|default=''}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone" class="col-sm-2 control-label">固定电话</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="phone" name="phone" placeholder="固定电话（选填）" type="tel" value="{$client_info['phone']|default=''}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="shop_name" class="col-sm-2 control-label">店铺名称</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="shop_name" name="shop_name" placeholder="店铺名称" type="text" value="{$client_info['shop_name']|default=''}">
-                                </div>
-                            </div>
-                            <if condition="$vendor eq 1">
-                                 <!-- for create select use -->
-                                <div class="selectModule" style="display: none;">
-                                <input type="hidden" name="category" value="{$client_info['category']|default=''}">
-                                <select >
-                                    <option disabled selected="true" value="-1">请选择</option>
-                                    <volist name="categories" id="categoryItem">  
-                                        <option value="{$categoryItem.categoryid}">{$categoryItem.category}</option>
-                                    </volist>
-                                </select>
-                                </div>
-                                <volist name="categorySelectedList" id="categorySelectedItem">
-                                   <div class="form-group categoryList">
-                                        <label class="col-sm-2 control-label">经营品类(+)</label>
-                                        <div class="col-sm-4">
-                                            <select class="form-control">
-                                                <volist name="categories" id="categoryItem">  
-                                                    <eq name="categorySelectedItem" value="$categoryItem.categoryid">
-                                                        <option value="{$categoryItem.categoryid}" selected="true">{$categoryItem.category}</option>
-                                                    <else />
-                                                       <option value="{$categoryItem.categoryid}">{$categoryItem.category}</option>
-                                                   </eq> 
-                                                    
-                                                </volist>
-                                            </select>
+                            <div class="form-group" style="text-align: center">
 
-                                        </div>
-                                        <if condition="$user neq 1">
-                                            <a class="delete-category glyphicon glyphicon-remove" href="###" role="button">删除</a>
-                                        </if>
-                                    </div>
-                                </volist>
-                                <div class="form-group">
-                                <if condition="$user neq 1">
-                                    <label class="col-sm-3 control-label"><a class=" glyphicon glyphicon-plus plus-category" href="###" role="button">新增经营品类</a></label>
-                                </if>
-                                </div> 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">配送额(元)</label>
-                                    <div class="col-sm-3">
-                                        <input class="form-control" placeholder="0" name="delivery_amount" type="text" onkeyup="value=value.replace(/[^\d]/g,'')" value="{$client_info['delivery_amount']|default=''}">
-                                    </div>
-                                </div>              
-                            </if>
-                            <if condition="$admin eq 1">
-                                <div class="form-group">
-                                    <label for="commission" class="col-sm-2 control-label">佣金比</label>
-                                    <div class="col-sm-3">
-                                        <input class="form-control" name="commission" placeholder="佣金比" type="text" value="{$client_info['commission']|default=''}">
-                                    </div>
-                                </div>
-                            </if>
-                            <div class="form-group">
-                                <label for="address_code" class="col-sm-2 control-label">所在地区</label>
-                                <div class="col-sm-10">
-                                    <div class="row" id="address_code">
-                                        <div class="col-sm-4">
-                                            <select id="province" class="form-control" name="province" data-content="{$client_info['province']|default=''}">
-                                                <option disabled selected value="-1">请选择</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <select id="city" class="form-control" name="city" data-content="{$client_info['city']|default=''}">
-                                                <option disabled selected value="-1">请选择</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <select id="county" class="form-control" name="county" data-content="{$client_info['county']|default=''}">
-                                                <option disabled selected value="-1">请选择</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="address_detail" class="col-sm-2 control-label">街道地址</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="address_detail" name="address_detail" placeholder="街道地址" type="text" value="{$client_info['address_detail']|default=''}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="points" class="col-sm-2 control-label">积分</label>
-                                <div class="col-sm-10">
-                                    <p class="form-control-static" id="points">{$client_info['points']|default="0"}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="grade" class="col-sm-2 control-label">等级</label>
-                                <div class="col-sm-10">
-                                    <p class="form-control-static" id="grade">{$client_info['grade']|default="0"}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="state" class="col-sm-2 control-label">审核状态</label>
-                                <div class="col-sm-10">
-                                    <p class="form-control-static" id="state">{$client_info['state_str']}</p>
-                                </div>
-                            </div>
+                                <button type="submit" class="btn btn-success" onclick="return check(this.form)">
+                                    &nbsp;&nbsp;保存&nbsp;&nbsp;
+
+                                </button>
+                            </div>    
                         </form>
                     </div>
-                    <if condition="$user neq 1">
-                        <!-- /.panel-body -->
-                        <div class="panel-footer" style="text-align: right">
-                            <button id="resetpwd" class="btn btn-danger cart_button pull-left" type="button" data-field="{$order_info['id']}" data-toggle="confirmation" data-btn-ok-label="是" data-btn-ok-icon="glyphicon glyphicon-ok" data-btn-ok-class="btn-success" data-btn-cancel-label="否" data-btn-cancel-icon="glyphicon glyphicon-remove" data-btn-cancel-class="btn-danger" data-title="是否确认重置该客户密码?" data-singleton="true" data-popout="true">重置客户密码</button>
-                            <button type="submit" class="btn btn-success" onclick="return check(this.form)">&nbsp;&nbsp;保存更改&nbsp;&nbsp;</button>
-                            <a href="/Admin/Client/index" class="btn btn-info" role="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</a>
-                        </div>
-                    </if>
+
                 </div>
                 <!-- /.panel -->
             </form>
@@ -198,25 +88,11 @@
     <!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
-<if condition="$user eq 1">
-<script type="text/javascript">
-        $(function(){
-            $(".panel-body input").attr("readonly","readonly").attr("disabled","disabled");
-            $(".panel-body select").attr("readonly","readonly").attr("disabled","disabled");
-        })
-
-</script>
-</if>
-<script src="__PUBLIC__/js/Home/address.js"></script>
-<script src="__PUBLIC__/js/Admin/client.edit.js"></script>
-<script src="__PUBLIC__/js/Home/operateCategory.js"></script>
+<script src="__PUBLIC__/js/Admin/activity.edit.js"></script>
 
 <script type="text/javascript">
     $(function(){
-        $('[data-toggle=confirmation]').confirmation({
-            rootSelector: '[data-toggle=confirmation]'
-        });
-        initCategory(2);
+
     });
 
 </script>

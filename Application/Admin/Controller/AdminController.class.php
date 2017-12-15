@@ -66,7 +66,7 @@ class AdminController extends Controller {
                     cookie('admin_token', $user_info['token']);
                 }
                 session('admin_id', $user_info['id']);
-                var_dump("1111");
+                
                 $this->redirect('Admin/index');
             } else {
                 $this->assign('error', 1);

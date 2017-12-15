@@ -1,0 +1,50 @@
+<layout name="Public/layout.normal" /> 
+
+<!-- Page Title -->
+<div class="section section-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>详细内容</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Job Description -->
+
+                <div class="job-details-wrapper">
+                    <h3>{$res.title}</h3>
+                    <p class="job-time">发布时间：{$res.create_time|strtotime|date='Y-m-d',###}</p>
+                    <p>
+<pre>{$res.content}</pre>
+                    </p>
+                        
+                </div>
+                <!-- End Job Description -->
+            </div>
+            <!-- Sidebar -->
+            <div class="col-md-3 col-md-offset-1">
+                <h4>你可能感兴趣</h4>
+                <table class="jobs-list">
+                    <tr>
+                        <td class="job-position">
+                            <a href="/Home/Index/activity?id=type={$type}&id={$previousRecord.id}">上一篇:&nbsp;{$previousRecord.title|default='无'}</a> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="job-position">
+                            <a href="/Home/Index/activity?id=type={$type}&id={$afterRecord.id}">下一篇:&nbsp;{$afterRecord.title} </a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <!-- End Sidebar -->
+        </div>
+    </div>
+</div>

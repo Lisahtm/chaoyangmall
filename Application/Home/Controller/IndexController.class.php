@@ -5,8 +5,79 @@ use Think\Controller;
 
 class IndexController extends Controller
 {
+    public function introduction(){
+        $this->assign("tab_type",1);
+        $this->display();
+    }
+    public function test(){
+        $Activity = M("Activity");
+        $dbname = "chaoyangmall_activity";
+        $list = $Activity->query("select * from $dbname LIMIT 1,2");
+        $a=2;
+        $b="$a*5";
+        var_dump($b);
+        var_dump($list);
+    }
     public function index()
     {
-        $this->show('<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} body{ background: #fff; font-family: "微软雅黑"; color: #333;font-size:24px} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.8em; font-size: 36px } a,a:hover{color:blue;}</style><div style="padding: 24px 48px;"> <h1>:)</h1><p>欢迎使用 <b>ThinkPHP</b>！</p><br/>版本 V{$Think.version}</div><script type="text/javascript" src="http://ad.topthink.com/Public/static/client.js"></script><thinkad id="ad_55e75dfae343f5a1"></thinkad><script type="text/javascript" src="http://tajs.qq.com/stats?sId=9347272" charset="UTF-8"></script>','utf-8');
+        $this->assign("tab_type",0);
+    	$Activity = M('Activity');
+    	$activityList = $Activity->order("create_time desc")->limit(5)->select();
+    	$this->assign("activityList",$activityList);
+    	$Business = M('Business');
+    	$businessList = $Business->order("create_time desc")->limit(5)->select();
+    	$this->assign("businessList",$businessList);
+        $this->display("index");
+
     }
+    public function activity(){
+
+        $id = I("get.id");
+        $type = I("get.type");
+        $Activity = M("activity");
+        if(!empty($id)){
+            if($type==2){
+                $Activity = M("business");
+            }
+            $res = $Activity->where("id=$id")->find();
+            $this->assign("res",$res);
+
+            //previous next
+            $previous = $Activity->where("id<$id")->order("id desc")->find();
+            $after = $Activity->where("id>$id")->order("id asc")->find();
+            $this->assign("previousRecord",$previous);
+            $this->assign("afterRecord",$after);
+        }
+
+        $this->display("activity");
+    }
+    public function activitylist(){
+        $this->assign("tab_type",3);
+        $type = 1;
+        $Activity = M("activity");
+        $dbname = "chaoyangmall_activity";
+        if(I("get.type")==2){
+                $type = 2;
+                $Activity = M("business");
+                $dbname = "chaoyangmall_business";
+        }
+        //ss,num,
+        $ss = 0;
+        $ssRecord = 0;
+        $num = 10;//一页展示的条数
+        $totalpage = ceil($Activity->count()/$num);
+        if(!empty(I("get.start"))){
+            $ss = I("get.start");
+            $ssRecord = ($ss-1)*$num;
+            
+        }
+        $this->assign("currentPage",$ss);
+        $this->assign("totalpage",$totalpage);
+        $this->assign("num",$num);
+        $activityList = $Activity->query("select * from $dbname LIMIT $ssRecord,$num");;
+        $this->assign("activityList",$activityList);
+        $this->assign("type",$type);
+        $this->display();
+    }
+
 }

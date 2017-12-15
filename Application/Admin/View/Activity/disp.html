@@ -2,12 +2,30 @@
 
 <!-- Page Content -->
 <div id="page-wrapper">
+
+      <if condition="$error gt 0">
+        <div id="notification" class="alert alert-danger alter-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            操作失败！(错误码:{$error})
+        </div>
+        <else/>
+            <notempty name="error">
+                <div id="notification" class="alert alert-danger alter-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            操作成功
+                </div> 
+            </notempty>
+      
+        </if>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    所有活动
-                    
+                    <if condition="$type eq 1">
+                        所有热销活动信息    
+                    <else />
+                        所有招商信息
+                    </if>                  
                 </h1>
             </div>
             <!-- /.col-lg-12 -->

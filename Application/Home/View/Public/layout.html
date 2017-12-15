@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<include file="Public/header" title="{$Think.config.TITLE}" />
+
+<body>
+<!-- Navigation & Logo-->
+    <div class="mainmenu-wrapper">
+        <div class="container">
+            <nav id="mainmenu" class="mainmenu">
+                <ul>
+                    <li class="logo-wrapper"><a href="index.html"><img src="img/mPurpose-logo.png" alt="LOGO PIC"></a></li>
+                    <li class="active">
+                        <a href="index.html">首页</a>
+                    </li>
+                    <li>
+                        <a href="features.html">广场介绍</a>
+                    </li>
+                    <li>
+                        <a href="credits.html">商户分布</a>
+                    </li>
+                    <li>
+                        <a href="/Home/Index/activitylist?type=1">热销活动</a>
+                    </li>
+                    <li>
+                        <a href="热销活动.html">位置交通</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>    
+    <div id="wrapper">
+      
+        {__CONTENT__}
+    </div>
+    <!-- /#wrapper -->	
+    <include file="Public/footer"/>
+    <script src="__PUBLIC__/js/Home/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/js/Home/jquery.fitvids.js"></script>
+    <script src="__PUBLIC__/js/Home/jquery.sequence-min.js"></script>
+    <script src="__PUBLIC__/js/Home/jquery.bxslider.js"></script>
+    <script src="__PUBLIC__/js/Home/main-menu.js"></script>
+    <script src="__PUBLIC__/js/Home/template.js"></script>
+</body>
+</html>
+

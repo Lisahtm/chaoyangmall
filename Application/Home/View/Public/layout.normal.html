@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<include file="Public/header" title="{$Think.config.TITLE}" />
+
+<body>
+<!-- Navigation & Logo-->
+    <div class="mainmenu-wrapper">
+        <div class="container">
+            <nav id="mainmenu" class="mainmenu">
+                <ul>
+                    <div style="display: none;"> {$list=array()}
+                    {$list[$tab_type]="active"}
+                    </div>
+                    <li class="logo-wrapper"><a href="index.html"><img src="img/mPurpose-logo.png" alt="LOGO PIC"></a></li>
+                    <li class="{$list[0]}">
+                        <a href="index.html">首页</a>
+                    </li>
+                    <li class="{$list[1]}">
+                        <a href="/Home/Index/introduction">广场介绍</a>
+                    </li>
+                    <li class="{$list[2]}">
+                        <a href="/Home/Index/introduction">商户分布</a>
+                    </li>
+                    <li class="{$list[3]}">
+                        <a href="/Home/Index/activitylist?type=1">热销活动</a>
+                    </li>
+                    <li class="{$list[4]}">
+                        <a href="热销活动.html">位置交通</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>    
+    <div id="wrapper">
+      
+        {__CONTENT__}
+    </div>
+    <!-- /#wrapper -->  
+    <eq name="tab_type" value="0">
+    <script src="__PUBLIC__/js/Home/jquery-1.9.1.min.js"></script>
+    <script src="__PUBLIC__/js/Home/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/js/Home/jquery.fitvids.js"></script>
+    <script src="__PUBLIC__/js/Home/jquery.sequence-min.js"></script>
+    <script src="__PUBLIC__/js/Home/jquery.bxslider.js"></script>
+    <script src="__PUBLIC__/js/Home/main-menu.js"></script>
+    <script src="__PUBLIC__/js/Home/template.js"></script>
+    </eq>
+</body>
+</html>
+

@@ -9,5 +9,5 @@ return array(
     'UPLOAD_PATH'       =>  './Uploads/',
     'TITLE'             =>  '朝阳商场',
     'ENV'				=>  'development',
-    'prefix'			=>  '/chaoyangmall'
+    'prefix'			=>  ''
 );
