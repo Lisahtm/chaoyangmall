@@ -136,10 +136,10 @@
                     <a href="#"><i class="fa fa-male fa-fw"></i> 商户管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/Admin/Product/disp.html">所有商户</a>
+                            <a href="/Admin/Company/disp.html">所有商户</a>
                         </li>
                         <li>
-                            <a href="/Admin/Product/add.html">添加商户信息</a>
+                            <a href="/Admin/Company/edit.html">添加商户信息</a>
                         </li>
 
                     </ul>

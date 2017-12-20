@@ -156,63 +156,84 @@
 
 <!-- Page Content -->
 <div id="page-wrapper">
-
-      <?php if($error > 0): ?><div id="notification" class="alert alert-danger alter-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            操作失败！(错误码:<?php echo ($error); ?>)
-        </div>
-        <?php else: ?>
-            <?php if(!empty($error)): ?><div id="notification" class="alert alert-danger alter-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            操作成功
-                </div><?php endif; endif; ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">
-                    <?php if($type == 1): ?>所有热销活动信息    
-                    <?php else: ?>
-                        所有招商信息<?php endif; ?>                  
-                </h1>
+                <h1 class="page-header"><?php echo ($title); ?></h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                    列表
-                        
+                        商户信息
                     </div>
-                    <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <div class="table-responsive">
-                            <table id="dataTables" class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>#</th>
-                                    <th>标题</th>
-                                    <th>内容</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                            </table>
+                        <?php if($result > 0): ?><div class="alert alert-success alter-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                操作成功！点击<a href="/Admin/Company/disp.html" class="alert-link">此处</a>查看商户。
+                            </div>
+                            <?php elseif($result < 0): ?>
+                            <div class="alert alert-danger alter-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                操作失败！原因:<?php echo ($msg); ?>
+                            </div><?php endif; ?>
+                        <div class="row">
+                            <form role="form" enctype="multipart/form-data" action="/Admin/Company/edit" method="post">
+                                <input type="hidden" name="id" value=<?php echo ((isset($company_info['id']) && ($company_info['id'] !== ""))?($company_info['id']):""); ?>>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>商品外观(不超过2M)</label>
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail" style="width: 100%; height: 100%;">
+                                                <img src="<?php echo ((isset($company_info['photo']) && ($company_info['photo'] !== ""))?($company_info['photo']):'/Public/image/default-placeholder.png'); ?>" style="height: 100%; width: 100%; display: block;" alt="上传图片">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail" style="width: 100%; height: 100%;"></div>
+                                            <div style="float: right;">
+                                                <span class="btn btn-default btn-file">
+                                                    <span class="fileinput-new">选择图片</span>
+                                                    <span class="fileinput-exists">变更图片</span>
+                                                    <input type="file" name="photo" accept="image/*">
+                                                </span>
+                                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">移除图片</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.col-lg-4 (nested) -->
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>商户名称</label>
+                                        <input class="form-control" name="name" type="text" maxlength="64" value="<?php echo ((isset($company_info['name']) && ($company_info['name'] !== ""))?($company_info['name']):''); ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>描述</label>
+                                        <textarea class="form-control" name="content" type="text" rows="10"><?php echo ((isset($company_info['content']) && ($company_info['content'] !== ""))?($company_info['content']):''); ?></textarea>
+                                    </div>
+                                    <div style="float: left;">
+                                        <button type="submit" class="btn btn-success">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
+                                        <button type="reset" class="btn btn-info">&nbsp;&nbsp;重置&nbsp;&nbsp;</button>
+                                    </div>
+                                </div>
+                                <!-- /.col-lg-8 (nested) -->
+                            </form>
                         </div>
-                        <!-- /.table-responsive -->
+                        <!-- /.row (nested) -->
                     </div>
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
             </div>
+            <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
     </div>
     <!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
-<script src="/Public/js/Admin/activity.js"></script>
 
     </div>
     <!-- /#wrapper -->	

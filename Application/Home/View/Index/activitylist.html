@@ -31,9 +31,9 @@
                             </div>
                         </td>
                         <td>
-                            <a target="_blank" href="/Home/Index/activity?type=1&id={$item.id}" class="event-grey">{$item.title}</td>
+                            <a target="_blank" href="/Home/Index/activity?type={$type}&id={$item.id}" class="event-grey">{$item.title}</td>
                         </td>
-                        <td><a target="_blank" href="/Home/Index/activity?type=1&id={$item.id}" class="btn btn-grey btn-sm event-more">查看更多</a></td>
+                        <td><a target="_blank" href="/Home/Index/activity?type={$type}&id={$item.id}" class="btn btn-grey btn-sm event-more">查看更多</a></td>
                     </tr>
                     </volist>
                 </table>
@@ -53,7 +53,7 @@
          var options = {
                 currentPage: {$currentPage}||1,//当前页
                 totalPages: {$totalpage},//总页数
-                numberofPages: 5,//显示的页数
+                numberofPages: 2,//显示的页数
                 
                 itemTexts: function(type, page, current) { //修改显示文字
                     switch (type) {

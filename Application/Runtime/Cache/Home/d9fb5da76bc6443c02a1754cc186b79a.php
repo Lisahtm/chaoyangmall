@@ -25,7 +25,7 @@
                     <div style="display: none;"> <?php echo ($list=array()); ?>
                     <?php echo ($list[$tab_type]="active"); ?>
                     </div>
-                    <li class="logo-wrapper"><a href="index.html"><img src="img/mPurpose-logo.png" alt="LOGO PIC"></a></li>
+                    <li class="logo-wrapper"><a href="index.html"><img style="width: 40px;" src="/Public/image/logo.png" alt="LOGO PIC"></a></li>
                     <li class="<?php echo ($list[0]); ?>">
                         <a href="index.html">首页</a>
                     </li>
@@ -33,19 +33,19 @@
                         <a href="/Home/Index/introduction">广场介绍</a>
                     </li>
                     <li class="<?php echo ($list[2]); ?>">
-                        <a href="/Home/Index/introduction">商户分布</a>
+                        <a href="/Home/Index/company">商户分布</a>
                     </li>
                     <li class="<?php echo ($list[3]); ?>">
                         <a href="/Home/Index/activitylist?type=1">热销活动</a>
                     </li>
                     <li class="<?php echo ($list[4]); ?>">
-                        <a href="热销活动.html">位置交通</a>
+                        <a href="/Home/Index/traffic">位置交通</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </div>    
-    <div id="wrapper">
+    <div id="wrapper" style="overflow: hidden">
       
          
 
@@ -70,7 +70,7 @@
                     <h3><?php echo ($res["title"]); ?></h3>
                     <p class="job-time">发布时间：<?php echo (date('Y-m-d',strtotime($res["create_time"]))); ?></p>
                     <p>
-<pre><?php echo ($res["content"]); ?></pre>
+                        <pre><?php echo ($res["content"]); ?></pre>
                     </p>
                         
                 </div>
@@ -82,12 +82,12 @@
                 <table class="jobs-list">
                     <tr>
                         <td class="job-position">
-                            <a href="/Home/Index/activity?id=type=<?php echo ($type); ?>&id=<?php echo ($previousRecord["id"]); ?>">上一篇:&nbsp;<?php echo ((isset($previousRecord["title"]) && ($previousRecord["title"] !== ""))?($previousRecord["title"]):'无'); ?></a> 
+                            <?php if(!empty($previousRecord)): ?><a href="/Home/Index/activity?type=<?php echo ($type); ?>&id=<?php echo ($previousRecord["id"]); ?>">上一篇:&nbsp;<?php echo ((isset($previousRecord["title"]) && ($previousRecord["title"] !== ""))?($previousRecord["title"]):'无'); ?></a><?php endif; ?>
                         </td>
                     </tr>
                     <tr>
                         <td class="job-position">
-                            <a href="/Home/Index/activity?id=type=<?php echo ($type); ?>&id=<?php echo ($afterRecord["id"]); ?>">下一篇:&nbsp;<?php echo ($afterRecord["title"]); ?> </a>
+                            <?php if(!empty($afterRecord)): ?><a href="/Home/Index/activity?type=<?php echo ($type); ?>&id=<?php echo ($afterRecord["id"]); ?>">下一篇:&nbsp;<?php echo ((isset($afterRecord["title"]) && ($afterRecord["title"] !== ""))?($afterRecord["title"]):'无'); ?> </a><?php endif; ?>
                         </td>
                     </tr>
 
@@ -98,6 +98,29 @@
     </div>
 </div>
     </div>
+    <!-- Footer -->
+<div class="footer">
+    <div class="container">
+        <div class="row">       
+            <div class="col-footer col-xs-12 " style="text-align: center">
+                <h3>联系我们</h3>
+                <p class="contact-us-details">
+                    <b>Address:</b> 123 Fake Street, LN1 2ST, London, United Kingdom<br/>
+                    <b>Phone:</b> +44 123 654321<br/>
+                    <b>Fax:</b> +44 123 654321<br/>
+                    <b>Email:</b> <a href="mailto:getintoutch@yourcompanydomain.com">getintoutch@yourcompanydomain.com</a>
+                </p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer-copyright">Copyright &copy; 2015.Company name All rights reserved.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- /#wrapper -->  
     <?php if(($tab_type) == "0"): ?><script src="/Public/js/Home/jquery-1.9.1.min.js"></script>
     <script src="/Public/js/Home/bootstrap.min.js"></script>
@@ -106,5 +129,6 @@
     <script src="/Public/js/Home/jquery.bxslider.js"></script>
     <script src="/Public/js/Home/main-menu.js"></script>
     <script src="/Public/js/Home/template.js"></script><?php endif; ?>
+
 </body>
 </html>

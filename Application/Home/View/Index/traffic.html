@@ -1,0 +1,48 @@
+<layout name="Public/layout.normal" /> 
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5b04ca7b890930543fdd80615ad71268"></script>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-md-offset-2">
+                <!-- Map -->
+                <div id="contact-us-map">
+
+                </div>
+                <!-- End Map -->
+                <!-- Contact Info -->
+                <p class="contact-us-details text-center">
+                    <b>Address:</b> 北京市朝阳区西坝河中里34号<br/>
+                    <b>Phone:</b> (010)64661561<br/>
+                    <b>Email:</b> <a href="mailto:getintoutch@yourcompanydomain.com">getintoutch@yourcompanydomain.com</a>
+                </p>
+                <!-- End Contact Info -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        // 百度地图API功能
+        var map = new BMap.Map("contact-us-map");    // 创建Map实例
+        map.centerAndZoom(new BMap.Point(116.446344,39.967705), 13);  // 初始化地图,设置中心点坐标和地图级别
+
+
+        var point = new BMap.Point(116.446344,39.967705);
+        var marker = new BMap.Marker(point);  
+        map.addOverlay(marker);              
+        map.centerAndZoom(point, 15);
+        var opts = {
+          width : 200,     // 信息窗口宽度
+          height: 100,     // 信息窗口高度
+          title : "北京朝阳商业大楼" , // 信息窗口标题
+          enableMessage:true,//设置允许信息窗发送短息
+          message:"北京市朝阳区西坝河中里34号"
+        }
+        var infoWindow = new BMap.InfoWindow("地址：北京市朝阳区西坝河中里34号", opts);  // 创建信息窗口对象 
+        marker.addEventListener("click", function(){          
+            map.openInfoWindow(infoWindow,point); //开启信息窗口
+        });
+    })
+
+</script>

@@ -18,6 +18,7 @@ class IndexController extends Controller
         var_dump($b);
         var_dump($list);
     }
+
     public function index()
     {
         $this->assign("tab_type",0);
@@ -30,6 +31,17 @@ class IndexController extends Controller
         $this->display("index");
 
     }
+    public function company(){
+        $this->assign("tab_type",2);
+        $Company = M("Company");
+        $item = $Company->select();
+        $this->assign("companyList",$item);
+        $this->show();
+    }    
+    public function traffic(){
+        $this->assign("tab_type",4);
+        $this->show();
+    }
     public function activity(){
 
         $id = I("get.id");
@@ -41,6 +53,7 @@ class IndexController extends Controller
             }
             $res = $Activity->where("id=$id")->find();
             $this->assign("res",$res);
+            $this->assign("type",$type);
 
             //previous next
             $previous = $Activity->where("id<$id")->order("id desc")->find();
@@ -61,6 +74,7 @@ class IndexController extends Controller
                 $Activity = M("business");
                 $dbname = "chaoyangmall_business";
         }
+        $this->assign("type",$type);
         //ss,num,
         $ss = 0;
         $ssRecord = 0;
@@ -74,7 +88,7 @@ class IndexController extends Controller
         $this->assign("currentPage",$ss);
         $this->assign("totalpage",$totalpage);
         $this->assign("num",$num);
-        $activityList = $Activity->query("select * from $dbname LIMIT $ssRecord,$num");;
+        $activityList = $Activity->query("select * from $dbname order by create_time desc LIMIT $ssRecord,$num");;
         $this->assign("activityList",$activityList);
         $this->assign("type",$type);
         $this->display();

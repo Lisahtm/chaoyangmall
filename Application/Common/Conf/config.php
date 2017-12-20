@@ -9,5 +9,7 @@ return array(
     'UPLOAD_PATH'       =>  './Uploads/',
     'TITLE'             =>  '朝阳商场',
     'ENV'				=>  'development',
-    'prefix'			=>  ''
+    'prefix'			=>  '',
+	// 'TMPL_EXCEPTION_FILE'=>APP_PATH.'/Common/Common/error.html',
+
 );

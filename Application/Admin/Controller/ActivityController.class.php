@@ -6,13 +6,16 @@ use Think\Controller;
 class ActivityController extends Controller
 {
 	protected $type = 1;//1 热销活动，2 招商
+    public function _initialize() {
+        if (!AdminController::is_login()) {
+            $this->redirect('Admin/index');
+        }
+    }
     public function index()
     {
         $this->display("disp");
     }
     public function disp(){
-		$type = I('get.type');
-    	$this->assign("type",$type);
     	$this->show();
     }
 
@@ -87,6 +90,10 @@ class ActivityController extends Controller
     	$type = I('get.type');
     	$id=I('get.activity_id');
     	$Activity = M('Activity');
+        if(empty($id)&&$id!==0){
+            $this->error("空id！");
+            return;
+        }
     	if($type == 2){
     		$Activity = M('business');
     	}
@@ -99,7 +106,7 @@ class ActivityController extends Controller
     	}else{
     		$this->assign("error",-1);
     	}
-    	$this->display("disp");
+    	$this->redirect("Activity/disp");
     }
     public function get_activity(){        
         if (IS_POST) {
@@ -116,7 +123,7 @@ class ActivityController extends Controller
                     }
                 }
             }
-            $order_arg['id'] = 'desc';
+            $order_arg['create_time'] = 'desc';
             // 搜索条件(name字段)
             $search_arg = array();
             if ($search['value'] != '') {
@@ -141,8 +148,6 @@ class ActivityController extends Controller
             $data["recordsFiltered"] = $data["recordsTotal"];
             $data['data'] = array();
             $count = 1;
-            $address_content = file_get_contents("./Public/address_code.json");
-            $address_code = json_decode($address_content, true);
             foreach ($client_list as $item){
                 $data_info = array();
                 $data_info['empty'] = '';

@@ -5,7 +5,6 @@ function GetQueryString(name)
      if(r!=null)return  unescape(r[2]); return null;
 }
 var init_datatables = function() {   
-    var actype = GetQueryString("type")||1;
     var config = {
         iDisplayLength: 50,
         lengthMenu: [[50, 100, 200, -1], [50, 100, 200, "所有"]],
@@ -14,13 +13,8 @@ var init_datatables = function() {
         processing: true,
         serverSide: true,
         ajax: {
-            'url': '/Admin/Activity/get_activity',
-            'type': 'POST',
-            'data': function(d) {
-                return $.extend({}, d, {
-                    'type': actype
-                });
-            }
+            'url': '/Admin/Company/get_companylist',
+            'type': 'POST'
         },
         columns: [
             {
@@ -29,9 +23,9 @@ var init_datatables = function() {
             },
             {'data': 'no'},
             {
-                'data': 'title',
+                'data': 'name',
                  'render': function(data, type, row, meta) {
-                    return '<a href="/Admin/Activity/edit.html?activity_id=' + row['id'] + '&type='+actype+'">'+data+'</a>&nbsp;';
+                    return '<a href="/Admin/Company/edit.html?id=' + row['id'] +'">'+data+'</a>&nbsp;';
                 }
                 
             },
@@ -39,7 +33,7 @@ var init_datatables = function() {
             {
                 'data': 'id',
                 'render': function(data, type, row, meta) {
-                    return '<a href="/Admin/Activity/delete.html?activity_id=' + row['id'] + '&type='+actype+'">删除</a>'; 
+                    return '<a href="/Admin/Company/delete.html?id=' + row['id'] +'">删除</a>'; 
                 }
             }
         ],

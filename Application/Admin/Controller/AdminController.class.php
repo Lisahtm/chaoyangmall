@@ -4,16 +4,15 @@ namespace Admin\Controller;
 use Think\Controller;
 
 class AdminController extends Controller {
-    public function _initialize() {
-        //check login
-
-    }
+  
 
     public function index() {
-    	if (!self::is_login()) {
-	        $this->redirect('Admin/login');
-	    }else 
-        	$this->display();
+        if (!self::is_login()) {
+            $this->redirect('Admin/login');
+        }else{
+            $this->display();
+        }
+        	
     }
     protected static function get_token($user_id, $user_name) {
         return md5($user_id . $user_name . time());

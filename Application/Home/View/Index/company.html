@@ -1,0 +1,31 @@
+<layout name="Public/layout.normal" /> 
+
+<!-- Page Title -->
+<div class="section section-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>入驻商家介绍</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <volist name="companyList" id="item">
+
+        <div class="row service-wrapper-row ">
+            <div class="col-sm-4">
+                <div class="service-image">
+                    <img src="{$item.photo}" alt="logo">
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <h3>{$item.name}</h3>
+                <p><pre>{$item.content}</pre></p>
+            </div>
+        </div>
+    </volist>
+    </div>
+</div>

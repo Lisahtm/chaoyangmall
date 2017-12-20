@@ -157,6 +157,7 @@
 <!-- Page Content -->
 <div id="page-wrapper">
 
+
       <?php if($error > 0): ?><div id="notification" class="alert alert-danger alter-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             操作失败！(错误码:<?php echo ($error); ?>)
@@ -170,9 +171,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    <?php if($type == 1): ?>所有热销活动信息    
-                    <?php else: ?>
-                        所有招商信息<?php endif; ?>                  
+                    商户信息                 
                 </h1>
             </div>
             <!-- /.col-lg-12 -->
@@ -193,8 +192,8 @@
                                 <tr>
                                     <th></th>
                                     <th>#</th>
-                                    <th>标题</th>
-                                    <th>内容</th>
+                                    <th>商品名称</th>
+                                    <th>描述</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -212,7 +211,7 @@
     <!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
-<script src="/Public/js/Admin/activity.js"></script>
+<script src="/Public/js/Admin/company.js"></script>
 
     </div>
     <!-- /#wrapper -->	

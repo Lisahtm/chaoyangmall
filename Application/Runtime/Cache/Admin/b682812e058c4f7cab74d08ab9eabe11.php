@@ -60,10 +60,10 @@
     <script>
         var _hmt = _hmt || [];
         (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?9bd11faac48d75dcd3c7b6dda89d127f";
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
+          // var hm = document.createElement("script");
+          // hm.src = "//hm.baidu.com/hm.js?9bd11faac48d75dcd3c7b6dda89d127f";
+          // var s = document.getElementsByTagName("script")[0]; 
+          // s.parentNode.insertBefore(hm, s);
         })();
     </script>
 
@@ -110,10 +110,10 @@
                     <a href="#"><i class="fa fa-fire fa-fw"></i>热销活动管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<?php echo (C("prefix")); ?>/Admin/Activity/disp.html">所有活动</a>
+                            <a href="/Admin/Activity/disp.html?type=1">所有活动</a>
                         </li>
                         <li>
-                            <a href="<?php echo (C("prefix")); ?>/Admin/Activity/edit.html">添加热销活动</a>
+                            <a href="/Admin/Activity/edit.html?type=1">添加热销活动</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -123,10 +123,10 @@
                     <a href="#"><i class="fa fa-money fa-fw"></i> 招商管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/Admin/Product/disp.html">所有招商信息</a>
+                            <a href="/Admin/Activity/disp.html?type=2">所有招商信息</a>
                         </li>
                         <li>
-                            <a href="/Admin/Product/edit.html">添加招商信息</a>
+                            <a href="/Admin/Activity/edit.html?type=2">添加招商信息</a>
                         </li>
 
                     </ul>
@@ -136,10 +136,10 @@
                     <a href="#"><i class="fa fa-male fa-fw"></i> 商户管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/Admin/Product/disp.html">所有商户</a>
+                            <a href="/Admin/Company/disp.html">所有商户</a>
                         </li>
                         <li>
-                            <a href="/Admin/Product/add.html">添加商户信息</a>
+                            <a href="/Admin/Company/edit.html">添加商户信息</a>
                         </li>
 
                     </ul>
